@@ -1,7 +1,7 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
-var PORT = process.env.PORT || 5000;
+// var PORT = process.env.PORT || 5000;
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
@@ -24,6 +24,6 @@ app.use("/update", routes);
 app.use("/create", routes);
 
 
-app.listen(app.get('PORT'), function() {
-    console.log("Listening on port:%s", PORT);
+app.listen(app.get('port'), function() {
+    console.log("Listening on port:%s", app.get('port'));
 });
