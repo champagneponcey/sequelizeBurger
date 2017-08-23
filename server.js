@@ -1,8 +1,10 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 5000;
 var app = express();
+
+app.set('port', (process.env.PORT || 5000));
 // Serve static content for the app from the "public" directory in the application directory.
 app.use(express.static(__dirname + "/public"));
 
@@ -22,6 +24,6 @@ app.use("/update", routes);
 app.use("/create", routes);
 
 
-app.listen(PORT, function() {
+app.listen(app.get('PORT'), function() {
     console.log("Listening on port:%s", PORT);
 });
