@@ -1,0 +1,3 @@
+# sequelizeBurger
+
+Under construction...
