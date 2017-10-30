@@ -32,13 +32,17 @@ router.get("/burgers", function(req, res) {
     });
 });
 
-// post route -> back to index
+// post route -> create burgers
 router.post("/burgers/create", function(req, res) {
-    // takes the request object using it as input for buger.addBurger
-    burger.create(req.body.burger_name, function(result) {
-        // wrapper for orm.js that using MySQL insert callback will return a log to console,
-        // render back to index with handle
-        console.log(result);
+    // takes the request object using it as input for burger.addBurger
+    db.Burger.create({
+        burger_name: req.body.burger_name
+    })
+    // pass call result
+    .then(function(dbBurger) {
+        // log result to bash
+        console.log(dbBurger);
+        // redirect page
         res.redirect("/");
     });
 });
