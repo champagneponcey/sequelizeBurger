@@ -1,7 +1,11 @@
+// This file uses Sequelize to manage data manipulation
+// for all apropos http requests.
+// ==================================================
 var express = require("express");
 
 var router = express.Router();
-var burger = require("../models/burger.js");
+// grabbing our models
+var burger = require("../models");
 
 // get route -> index
 router.get("/", function(req, res) {
