@@ -3,18 +3,27 @@
 
 module.exports = function(sequelize, DataTypes) {
     var Burger = sequelize.define("Burger", {
-        all: {
-            type: DataTypes.STRING,
+        showAll: {
+            type: Sequelize.STRING,
             allowNull: false
         },
-        create: {
-            type: DataTypes.STRING,
+        createBurger: {
+            type: Sequelize.STRING,
             allowNull: false
         },
-        update: {
-            type: DataTypes,
+        updateBurger: {
+            type: Sequelize,
             allowNull: false
         }
     });
-    Burger.sync();
+
+    Burger.sync({ force: false })
+        .then(() => {
+            // table created
+            return Burger.create({
+                showAll: [],
+                createBurger: '',
+                updateBurger: ''
+            });
+        });
 };

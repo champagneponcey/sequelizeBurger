@@ -61,7 +61,6 @@ sequelize
     console.error('Unable to connect to the database:', err);
 });
 
-
 db.sequelize.sync({ force: true }).then(function() {
     app.listen(PORT, function() {
         console.log("Listening on port: " + PORT);
