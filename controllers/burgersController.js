@@ -47,14 +47,40 @@ router.post("/burgers/create", function(req, res) {
     });
 });
 
-// put route -> back to index
+// put route -> to devour
 router.put("/burgers/update", function(req, res) {
-    burger.update(req.body.burger_id, function(result) {
-        // wrapper for orm.js that using MySQL update callback will return a log to console,
-        // render back to index with handle
-        console.log(result);
-        res.redirect("/");
-    });
+    // if customer name is given then we will create the customer and have them devour it
+    if (req.body.customer) {
+        db.Customer.create({
+            customer: req.body.customer,
+            BurgerId: req.body.burger_id
+        })
+        .then(function(dbCustomer) {
+            return db.Burger.update({
+                devoured: true
+            }, {
+                where: {
+                    id: req.body.burger_id
+                }
+            });
+        })
+        .then(function(dbBurger) {
+            res.redirect("/");
+        });
+    }
+    // if no customer, update burger only
+    else {
+        db.Burger.update({
+            devoured: true
+        }, {
+            where: {
+                id: req.body.burger_id
+            }
+        })
+        .then(function(dbBurger) {
+            res.redirect("/");
+        });
+    }
 });
 
 module.exports = router;
