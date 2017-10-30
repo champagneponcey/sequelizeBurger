@@ -8,8 +8,20 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('burgers', 'root', '');
+var sequelize = new Sequelize('burgers', 'root', '', {
+    host: 'localhost',
+    dialect: 'mysql',
+    pool: {
+        max: 5,
+        min: 0,
+        idle: 10000
+      }
+});
 const routes = require("./routes");
+
+const User = sequelize.define('user', {
+
+})
 
 // Sets up the Express App
 // =============================================================
@@ -37,6 +49,18 @@ app.set("view engine", "handlebars");
 // Routes
 // =============================================================
 app.use(routes);
+
+// test sequelize to see if it is working
+// =============================================================
+sequelize
+    .authenticate()
+    .then(() => {
+    console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+    console.error('Unable to connect to the database:', err);
+});
+
 
 db.sequelize.sync({ force: true }).then(function() {
     app.listen(PORT, function() {
