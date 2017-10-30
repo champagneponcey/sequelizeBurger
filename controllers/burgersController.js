@@ -9,14 +9,26 @@ var burger = require("../models");
 
 // get route -> index
 router.get("/", function(req, res) {
+    // sends to next get function
     res.redirect("/burgers");
 });
 
 router.get("/burgers", function(req, res) {
     // express callback response by calling burger.selectAllBurger
-    burger.findAll(function(burgerData) {
-        // wrapper for orm.js that using MySQL query callback will return burger_data, render to index with handlebar
-        res.render("index", { burger_data: burgerData });
+    db.Burger.findAll({
+        include: [db.Customer],
+        //specify want to return burgers in ordered by ascending burger_name
+        order: [
+            ["burger_name", "ASC"]
+        ]
+    })
+    // use promise method to pass burgers...
+    .then(function(dbBurger) {
+        // main index, update page
+        var hbsObject = {
+            burger: dbBurger
+        };
+        res.render("index", hbsObject);        
     });
 });
 
