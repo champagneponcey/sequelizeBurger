@@ -8,7 +8,8 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('burgers', 'mv85xtpjm3fp3stm', 'mv85xtpjm3fp3stm');
+var sequelize = new Sequelize('burgers', 'root', '');
+const routes = require("./routes");
 
 // Sets up the Express App
 // =============================================================
@@ -33,14 +34,12 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
-var routes = require("./controllers/burgersController.js");
-
-app.use("/", routes);
-app.use("/update", routes);
-app.use("/create", routes);
+// Routes
+// =============================================================
+app.use(routes);
 
 db.sequelize.sync({ force: true }).then(function() {
     app.listen(PORT, function() {
-        console.log("Listening on port:%s" + PORT);
+        console.log("Listening on port: " + PORT);
     });
 });
