@@ -2,7 +2,6 @@
 // for all apropos http requests.
 // ==================================================
 var express = require("express");
-
 var router = express.Router();
 // grabbing our models
 var burger = require("../models");

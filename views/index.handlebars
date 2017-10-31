@@ -6,7 +6,7 @@
 		</div>
 		<div class="col-xs-6 text-center" class="task">
 			<div class="row">
-			  {{#each burger}}
+			  {{#each burgers}}
 			  	{{#unless this.devoured}}
 				<div class="col-xs-9 text-center">
 					<pre>{{this.id}}. {{this.burger_name}}
@@ -15,7 +15,7 @@
 				</div>
 				<div class="col-xs-3 text-center">
 					<form method="POST" action="/burgers/update?_method=PUT" class="button-size">
-						<input type="hidden" type="text" name="burger_id" value={{this.id}}>
+						<input type="hidden" type="text" name="burgers_id" value={{this.id}}>
 						<br />
 						<input class="custInput" type="text" name="customer" placeholder="Customer Name">
 						<br />
@@ -27,7 +27,7 @@
 			</div>
 		</div>
 		<div class="col-xs-6 text-center" class="task">
-			{{#each burger}}
+			{{#each burgers}}
 				{{#if this.devoured}}
 					{{#if this.Customer.customer}}
 						<input class="form-control" type="text" placeholder="{{this.id}} . {{this.burger_name}} (Eaten by {{this.Customer.customer}}) " readonly>
